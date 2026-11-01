@@ -112,6 +112,85 @@ GPU-bound. The binding constraints encountered so far were **RAM** (the 5.11
 GiB interaction array) and **single-core CPU time**, neither of which a GPU
 addresses.
 
+## Finding 4 — cross-validation tracks the leaderboard
+
+| | ROC AUC |
+|---|---|
+| `hgb` default, 5-fold CV on 699,960 rows | 0.94526 |
+| Same predictions, public leaderboard | **0.94629** |
+| Gap | **+0.00103** |
+
+The leaderboard came in *above* CV, by about a quarter of the fold-to-fold
+standard deviation. Validation is slightly conservative and well calibrated.
+
+This licenses the whole tuning strategy: **select against CV, not the
+leaderboard.** CV is computed on 699,960 rows; the public leaderboard is
+~20% of the test set, 59,997 rows holding roughly 1,002 positives. By
+Hanley-McNeil the standard error of an AUC near 0.946 on that sample is
+**0.00497**, so the entire gap from rank 43 to rank 1 (0.00329) is 0.66
+standard errors. The public leaderboard cannot distinguish most of the field;
+CV can.
+
+## Finding 5 — the optimal gradient-boosting model is a stump ensemble
+
+Randomised search, three rounds, each against a matched control on the same
+200,000-row subsample and folds:
+
+| Round | `max_leaf_nodes` searched | Best | AUC @200k/3-fold |
+|---|---|---|---|
+| control | — (default 31) | 31 | 0.94047 |
+| 1 | 15, 31, 63, 127 | **15** | 0.94215 |
+| 2 | 4, 6, 8, 12, 15 | **4** | 0.94338 |
+| 3 | 2, 3, 4, 5 | **2** | **0.94443** |
+
+Every round's winner sat on the *lower* boundary of its grid, so every round's
+grid was wrong and had to be extended downward. The search terminated at
+`max_leaf_nodes = 2` — decision stumps, each tree splitting on one feature
+once. **A stump ensemble cannot represent feature interactions at all.**
+
+Best configuration: `learning_rate=0.05, max_leaf_nodes=2,
+min_samples_leaf=20, l2_regularization=0.5, max_iter=2000, max_features=0.7`.
+
+Validated at full data, 5 folds: **0.94612**, against the default's 0.94526 —
+a gain of **+0.00086**. Note that this is far smaller than the +0.00396 the
+subsample promised: 699,960 rows support model capacity that 200,000 do not,
+so the default's excess complexity costs less at full scale. **A tuning gain
+measured on a subsample overstates the gain at full data**, and the honest
+number is the full-data one.
+
+## Finding 6 — blending with the linear model adds exactly nothing
+
+Rank-averaging the stump ensemble with `linear_main`, weight swept 0 to 1:
+
+| w(stumps) | 0.0 | 0.3 | 0.5 | 0.7 | 0.9 | 1.0 |
+|---|---|---|---|---|---|---|
+| Blend AUC | 0.94136 | 0.94388 | 0.94496 | 0.94567 | 0.94604 | **0.94610** |
+
+Monotonic to w = 1. The optimum is pure stumps; the linear model contributes
+nothing at any weight. Their OOF rank correlation is 0.9466.
+
+The reason is structural, and it closes the argument. A stump ensemble is a
+**generalised additive model**: a sum of univariate step functions, one
+feature at a time. Logistic regression is also additive, with linear instead of
+step-shaped terms. The stumps therefore *subsume* the linear model — they span
+the same additive space and fit richer per-feature shapes within it. Blending a
+model with a strictly weaker model of the same family cannot help.
+
+## The converging argument
+
+Three independent experiments point the same way:
+
+1. `linear_main`, purely additive, lands within 0.0039 of default boosting.
+2. All pairwise interactions **hurt** by 0.0163 against a matched control.
+3. Boosting tuned freely drives itself down to stumps — **zero interactions** —
+   and gains 0.0040 at 200k doing it.
+
+**This dataset is additive in log-odds.** Not approximately, not as a
+simplifying assumption: three different model families, asked independently how
+much interaction structure they want, all answer none. Any feature engineering
+built on crossing features is predicted to fail, and that prediction is now
+worth stating in advance and testing.
+
 ## Where the headroom is
 
 Worst to best across the full-data models spans 0.146 AUC, but that range is

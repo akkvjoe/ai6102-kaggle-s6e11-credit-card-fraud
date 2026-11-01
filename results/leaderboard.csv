@@ -1,0 +1,2 @@
+utc,submission,model,cv_mean_auc,public_lb,rank,of_teams,note
+2026-11-01T08:20:00+00:00,hgb_20261101-075246.csv,hgb default,0.945262,0.94629,43,66,"first submission; LB - CV = +0.00103"
