@@ -1,0 +1,15 @@
+# Competition data — never commit. Kaggle rules govern redistribution.
+data/*
+!data/.gitkeep
+submissions/*
+!submissions/.gitkeep
+
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+artifacts/
+*.log
+.DS_Store
