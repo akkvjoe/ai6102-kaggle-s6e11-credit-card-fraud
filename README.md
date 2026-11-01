@@ -76,8 +76,10 @@ token belongs to — then:
 ./scripts/fetch_data.sh --force  # re-download and overwrite
 ```
 
-Needs the Kaggle CLI (`pip install kaggle`) and a token at
-`~/.kaggle/kaggle.json`. Failing that, download the three files by hand from the
+Needs the Kaggle CLI (`pip install kaggle`) and credentials — `kaggle auth
+login` (OAuth), `KAGGLE_API_TOKEN`, or a token file at
+`~/.kaggle/access_token` (`~/.kaggle/kaggle.json` is the legacy format).
+Failing that, download the three files by hand from the
 competition Data tab into `data/`.
 
 ## Run

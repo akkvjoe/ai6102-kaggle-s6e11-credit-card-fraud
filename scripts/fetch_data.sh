@@ -5,9 +5,13 @@
 #   ./scripts/fetch_data.sh          # no-op if the files are already present
 #   ./scripts/fetch_data.sh --force  # re-download and overwrite
 #
-# Requires the Kaggle CLI (`pip install kaggle`) and an API token at
-# ~/.kaggle/kaggle.json, on an account that has joined the competition.
-# This script never reads, prints or copies the token.
+# Requires the Kaggle CLI (`pip install kaggle`) and credentials, on an account
+# that has joined the competition. Current CLI versions accept any of:
+#   kaggle auth login                 OAuth, no token file to manage
+#   export KAGGLE_API_TOKEN=...       environment variable
+#   ~/.kaggle/access_token            token file
+#   ~/.kaggle/kaggle.json             legacy format, older CLIs
+# This script never reads, prints or copies any of them.
 #
 set -euo pipefail
 
@@ -48,14 +52,29 @@ MSG
   exit 1
 fi
 
-if [[ ! -f "${HOME}/.kaggle/kaggle.json" && -z "${KAGGLE_USERNAME:-}" ]]; then
-  cat >&2 <<'MSG'
-error: no Kaggle credentials found.
+# Credential discovery mirrors what the CLI itself accepts. Presence is all
+# that is checked; the contents are never read by this script.
+KAGGLE_DIR="${KAGGLE_CONFIG_DIR:-${HOME}/.kaggle}"
+if [[ -z "${KAGGLE_API_TOKEN:-}" \
+   && -z "${KAGGLE_USERNAME:-}" \
+   && ! -f "${KAGGLE_DIR}/access_token" \
+   && ! -f "${KAGGLE_DIR}/kaggle.json" \
+   && ! -d "${HOME}/.cache/kaggle" ]]; then
+  cat >&2 <<MSG
+error: no Kaggle credentials found in ${KAGGLE_DIR}, the environment, or the
+OAuth cache.
 
-Create a token at https://www.kaggle.com/settings (API -> Create New Token),
-move the downloaded kaggle.json to ~/.kaggle/kaggle.json, then:
+Easiest — OAuth, nothing to store:
 
-  chmod 600 ~/.kaggle/kaggle.json
+  kaggle auth login
+
+Or generate a token at https://www.kaggle.com/settings/api and either:
+
+  export KAGGLE_API_TOKEN=...          # this shell only
+  # or write it to ${KAGGLE_DIR}/access_token , then:
+  chmod 600 ${KAGGLE_DIR}/access_token
+
+(~/.kaggle/kaggle.json is the legacy format and still works on older CLIs.)
 MSG
   exit 1
 fi
