@@ -104,13 +104,36 @@ Slide 8 grades **writing** (logical organisation, clarity, typos) and
 **experiment extensiveness**. Leaderboard position is not itself graded — it
 only triggers the bonus.
 
-## Expected first move: the imbalance
+## The imbalance, now measured
 
-Fraud datasets are heavily imbalanced, and that shapes the experimental plan
-before any data is seen. Resampling, class weighting, threshold selection and
-ROC-AUC versus PR-AUC behaviour each give a natural "verify your motivations"
-experiment. Confirm the actual positive rate with `scripts/profile_data.py`
-before committing to any of it.
+**Positive rate 0.01670 — 11,689 frauds in 699,960 rows, about 1 in 60.**
+Always predicting "not fraud" scores 98.33% accuracy, which is why the metric
+is ROC AUC and why every fold is stratified.
+
+It is already doing analytical work: it explains why all-pairwise interactions
+*hurt* (roughly two positive examples per free parameter at 150k rows). See
+`MODELS.md`.
+
+## Two ways to run the same thing
+
+The notebooks import from `src/` rather than re-implementing anything, so the
+script path and the notebook path cannot drift — there is one definition of the
+data handling, the model registry and the CV loop.
+
+| | |
+|---|---|
+| `notebooks/01_explore.ipynb` | data, imbalance, univariate signal, level lifts. Companion to `scripts/profile_data.py` |
+| `notebooks/02_models.ipynb` | model comparison, the interaction test, submission. Companion to `scripts/run_experiment.py` |
+
+Both have been executed end-to-end against the real data.
+
+## Compute
+
+No GPU is needed or useful here: 24 clean tabular features, and a logistic
+regression lands within 0.004 AUC of gradient boosting. The constraints met in
+practice were **RAM** (the interaction expansion needs 5.11 GiB) and
+**single-core CPU time** (LightGBM, 294 s). Kaggle's own free CPU notebooks
+(4 cores, ~30 GB) are a better fit than a GPU runtime for the heavy runs.
 
 ## Open questions
 
@@ -124,9 +147,11 @@ before committing to any of it.
 ## Status
 
 - [x] Repo scaffold ported from S6E9, smoke test passing
-- [ ] Joined the competition on Kaggle
-- [ ] Real data downloaded
-- [ ] Data profiled -> eda/profile.md
-- [ ] First leaderboard submission
-- [ ] Model comparison across families
+- [x] Joined the competition on Kaggle
+- [x] Real data downloaded — 699,960 train / 299,984 test
+- [x] Data profiled -> `eda/profile.md`; positive rate 0.01670
+- [x] Model comparison across families -> `MODELS.md`
+- [x] Notebooks -> `notebooks/01_explore.ipynb`, `notebooks/02_models.ipynb`
+- [ ] First leaderboard submission (file written, not yet uploaded)
+- [ ] Hyperparameter tuning and blending
 - [ ] Report

@@ -1,0 +1,76 @@
+column,level,n,share,target_rate,lift_vs_base
+txn_count_last_24h,0,18462,0.0264,0.002329,0.1395
+txn_count_last_24h,1,92705,0.1324,0.006904,0.4134
+txn_count_last_24h,2,170757,0.244,0.01279,0.7659
+txn_count_last_24h,3,178367,0.2548,0.016645,0.9968
+txn_count_last_24h,4,131869,0.1884,0.019785,1.1848
+txn_count_last_24h,5,69701,0.0996,0.025896,1.5507
+txn_count_last_24h,6,26488,0.0378,0.03511,2.1025
+txn_count_last_24h,7,8907,0.0127,0.043561,2.6085
+txn_count_last_24h,8,2252,0.0032,0.03952,2.3666
+txn_count_last_24h,9,378,0.0005,0.058201,3.4852
+txn_count_last_24h,10,65,0.0001,0.123077,7.3701
+txn_count_last_24h,11,9,0.0,0.222222,13.3071
+cvv_retry_count,0,642088,0.9173,0.009329,0.5586
+cvv_retry_count,1,55942,0.0799,0.087501,5.2398
+cvv_retry_count,2,1905,0.0027,0.417323,24.9901
+cvv_retry_count,3,25,0.0,0.36,21.5575
+day_of_week,0,100548,0.1436,0.015823,0.9475
+day_of_week,1,102288,0.1461,0.016561,0.9917
+day_of_week,2,101467,0.145,0.016725,1.0015
+day_of_week,3,97261,0.139,0.016399,0.982
+day_of_week,4,102508,0.1464,0.01676,1.0036
+day_of_week,5,95271,0.1361,0.016794,1.0057
+day_of_week,6,100617,0.1437,0.01783,1.0677
+prior_disputes,0,598396,0.8549,0.015471,0.9265
+prior_disputes,1,96365,0.1377,0.023598,1.4131
+prior_disputes,2,5032,0.0072,0.030008,1.7969
+prior_disputes,3,165,0.0002,0.036364,2.1775
+prior_disputes,4,2,0.0,0.0,0.0
+merchant_category,Crypto Exchange,5285,0.0076,0.065279,3.909
+merchant_category,Electronics,48693,0.0696,0.030826,1.8459
+merchant_category,Fuel,59880,0.0855,0.012375,0.741
+merchant_category,Gaming,23784,0.034,0.055121,3.3008
+merchant_category,Gift Cards,9456,0.0135,0.07297,4.3696
+merchant_category,Groceries,142578,0.2037,0.011117,0.6657
+merchant_category,Healthcare,35889,0.0513,0.012873,0.7709
+merchant_category,Online Retail,155097,0.2216,0.011083,0.6637
+merchant_category,Restaurants,101360,0.1448,0.011434,0.6847
+merchant_category,Streaming,47196,0.0674,0.022481,1.3462
+merchant_category,Travel,28715,0.041,0.018597,1.1136
+merchant_category,Utilities,42027,0.06,0.013824,0.8278
+card_type,Amex,45797,0.0654,0.019019,1.1389
+card_type,Discover,17235,0.0246,0.014563,0.8721
+card_type,Mastercard,254857,0.3641,0.016025,0.9596
+card_type,RuPay,37070,0.053,0.016806,1.0064
+card_type,Visa,345001,0.4929,0.016985,1.0171
+auth_method,3D Secure,210036,0.3001,0.01475,0.8832
+auth_method,Biometric,93666,0.1338,0.004996,0.2992
+auth_method,No Authentication,67060,0.0958,0.06445,3.8594
+auth_method,OTP,175178,0.2503,0.014066,0.8423
+auth_method,PIN,154020,0.22,0.008681,0.5198
+channel,ATM,30220,0.0432,0.015884,0.9511
+channel,Contactless,105620,0.1509,0.015537,0.9304
+channel,In-App,83716,0.1196,0.016329,0.9778
+channel,Online,273939,0.3914,0.017424,1.0434
+channel,POS,206465,0.295,0.016603,0.9942
+device_type,ATM Machine,20877,0.0298,0.016956,1.0154
+device_type,Android Phone,237454,0.3392,0.016104,0.9643
+device_type,Mac,33973,0.0485,0.017102,1.0241
+device_type,POS Terminal,113237,0.1618,0.017291,1.0354
+device_type,Smart Watch,21106,0.0302,0.017009,1.0186
+device_type,Tablet,27688,0.0396,0.017011,1.0187
+device_type,Windows PC,80934,0.1156,0.016137,0.9663
+device_type,iPhone,164691,0.2353,0.01722,1.0312
+is_foreign_transaction,False,687862,0.9827,0.014782,0.8852
+is_foreign_transaction,True,12098,0.0173,0.125723,7.5286
+is_new_merchant,False,593240,0.8475,0.011188,0.6699
+is_new_merchant,True,106720,0.1525,0.047339,2.8347
+used_vpn,False,676295,0.9662,0.014992,0.8977
+used_vpn,True,23665,0.0338,0.065498,3.9221
+ip_country_mismatch,False,688648,0.9838,0.014264,0.8542
+ip_country_mismatch,True,11312,0.0162,0.164958,9.878
+billing_shipping_mismatch,False,690906,0.9871,0.015216,0.9112
+billing_shipping_mismatch,True,9054,0.0129,0.129887,7.7779
+is_ai_generated_scam_attempt,False,697661,0.9967,0.016253,0.9733
+is_ai_generated_scam_attempt,True,2299,0.0033,0.15224,9.1164

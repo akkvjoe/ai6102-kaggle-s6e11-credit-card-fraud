@@ -1,0 +1,27 @@
+column,dtype,kind,n_unique,missing_train,missing_train_pct,missing_test,in_test,min,q1,median,q3,max,mean,std,test_mean,top_level,top_level_share,levels_only_in_test
+id,int64,numeric,699960,0,0.0,0.0,True,0.0,174989.75,349979.5,524969.25,699959.0,349979.5,202061.19154850097,849951.5,,,
+amount_usd,float64,numeric,13387,0,0.0,0.0,True,1.0,15.81,27.25,43.11,6872.69,79.8930678610206,205.17353838608338,79.92119527041443,,,
+hours_since_last_txn,float64,numeric,3633,0,0.0,0.0,True,0.01,2.11,4.73,9.19,51.98,6.633734041945252,6.290132522640122,6.6403168168969025,,,
+txn_count_last_24h,int64,numeric,12,0,0.0,0.0,True,0.0,2.0,3.0,4.0,11.0,2.984091948111321,1.4989977559343652,2.9838058029761587,,,
+distance_from_home_km,float64,numeric,4365,0,0.0,0.0,True,0.0,4.43,10.22,19.75,57.93,13.587575147151268,11.617325302571148,13.60288992079578,,,
+card_age_months,int64,numeric,49,0,0.0,0.0,True,25.0,43.0,47.0,51.0,73.0,46.86298217040974,5.579190193786376,46.84074817323591,,,
+customer_age,int64,numeric,64,0,0.0,0.0,True,18.0,38.0,52.0,66.0,81.0,51.43028601634379,17.89914984928127,51.424259293829,,,
+account_balance_usd,float64,numeric,43317,0,0.0,0.0,True,58.25,834.12,1382.74,2517.02,99701.39,2064.9980703183046,3400.1329215847645,2071.4679983932474,,,
+cvv_retry_count,int64,numeric,4,0,0.0,0.0,True,0.0,0.0,0.0,0.0,3.0,0.08547202697296988,0.28952399809799284,0.08536788628726866,,,
+velocity_score,float64,numeric,666,0,0.0,0.0,True,0.0,11.4,18.6,26.0,72.9,18.929445111149203,10.864384936488788,18.93846041788895,,,
+time_of_day_hour,int64,numeric,24,0,0.0,0.0,True,0.0,6.0,12.0,18.0,23.0,11.761914966569519,6.869164404515409,11.746939836791295,,,
+day_of_week,int64,numeric,7,0,0.0,0.0,True,0.0,1.0,3.0,5.0,6.0,2.981733241899537,2.001651715182122,2.9713384713851405,,,
+merchant_risk_score,float64,numeric,950,0,0.0,0.0,True,0.0,26.4,34.2,42.7,100.0,35.217647894165395,12.628360533238558,35.217382927089446,,,
+prior_disputes,int64,numeric,5,0,0.0,0.0,True,0.0,0.0,0.0,0.0,4.0,0.1527687296416938,0.3811263190485881,0.15392154248226572,,,
+merchant_category,object,categorical,12,0,0.0,0.0,True,,,,,,,,,Online Retail,0.2216,0.0
+card_type,object,categorical,5,0,0.0,0.0,True,,,,,,,,,Visa,0.4929,0.0
+auth_method,object,categorical,5,0,0.0,0.0,True,,,,,,,,,3D Secure,0.3001,0.0
+channel,object,categorical,5,0,0.0,0.0,True,,,,,,,,,Online,0.3914,0.0
+device_type,object,categorical,8,0,0.0,0.0,True,,,,,,,,,Android Phone,0.3392,0.0
+is_foreign_transaction,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.017394261027254786,,,
+is_new_merchant,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.15282815083471119,,,
+used_vpn,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.032968424982665744,,,
+ip_country_mismatch,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.0160341884900528,,,
+billing_shipping_mismatch,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.013087364659448503,,,
+is_ai_generated_scam_attempt,bool,numeric,2,0,0.0,0.0,True,,,,,,,,0.003430182943090298,,,
+is_fraud,int64,numeric,2,0,0.0,,False,0.0,0.0,0.0,0.0,1.0,0.016699525687182123,0.1281431815917372,,,,
