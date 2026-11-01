@@ -13,9 +13,18 @@ from src.data import split_xy
 from src.submit import write_submission
 
 
+# Enough rows and a high enough rate that three stratified folds each hold a
+# usable number of positives, while still being an imbalanced problem. The real
+# competition rate is unknown until the data is downloaded.
+SMOKE_POSITIVE_RATE = 0.02
+
+
 def main() -> None:
-    train = make(3000, 0, with_target=True)
-    test = make(1200, 3000, with_target=False)
+    train = make(12000, 0, with_target=True, positive_rate=SMOKE_POSITIVE_RATE)
+    test = make(1200, 12000, with_target=False, positive_rate=SMOKE_POSITIVE_RATE)
+
+    n_pos = int(train[config.TARGET_COL].sum())
+    assert n_pos >= 60, f"too few positives for a meaningful smoke test: {n_pos}"
 
     X, y, X_test, test_ids = split_xy(train, test)
     assert config.TARGET_COL not in X.columns, "target leaked into features"
